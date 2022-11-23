@@ -25,35 +25,41 @@ def enter_poly(nb_coeff):
 def calc_f_a(coeffs, degre_poly, nb_a):
     """
     Calcule le polynôme au point a
-    Entrée : la liste des coefficients, le degré du polynôme et la valeur de a
+    Entrée : la liste des coefficients (réels), le degré du polynôme (entier) et la valeur de a (réel)
     Résultat : la valeur du polynôme en a (un réel)
     """
     f_a = coeffs[degre_poly]*nb_a+coeffs[degre_poly-1]
-    for i in range(degre-2, -1, -1):
+    for i in range(degre_poly-2, -1, -1):
         f_a = f_a*nb_a+coeffs[i]
     return f_a
 
 
-def search_a(list_coeff, degre):
+def search_a(coeffs, degre_poly):
+    """
+    Recherche une intervalle [a;-a] dans laquelle une racine du polynôme
+    est contenue
+    Entrée : liste des coefficients (réels), degré du polynôme (entier)
+    Résultat : liste qui contient [a;-a] (réels), soit une intervalle
+    """
     search_intervalle = True
-    a = 1
-    intervalle = [a, a]
+    nb_a = 1
+    defined_intervalle = [nb_a, nb_a]
     while search_intervalle:
-        f_a = calc_f_a(list_coeff, degre, a)
-        f_a_neg = calc_f_a(list_coeff, degre, -a)
+        f_a = calc_f_a(coeffs, degre_poly, nb_a)
+        f_a_neg = calc_f_a(coeffs, degre_poly, -nb_a)
         prod_f_a = f_a * f_a_neg
         if prod_f_a < 0:
             search_intervalle = False
-            intervalle = [-a, a]
+            defined_intervalle = [-nb_a, nb_a]
         elif prod_f_a == 0:
             search_intervalle = False
             if f_a == 0:
-                intervalle = [a, a]
+                defined_intervalle = [nb_a, nb_a]
             else:
-                intervalle = [-a, -a]
+                defined_intervalle = [-nb_a, -nb_a]
         else:
-            a += 1
-    return intervalle
+            nb_a += 1
+    return defined_intervalle
 
 
 def dichotomie(list_coeff, degre, intervalle):
