@@ -87,9 +87,12 @@ def dichotomie(coeffs:float, degre_poly:int, initial_intervalle:float):
         return new_intervalle
 
 
-def boucle_dichotomie(coeffs:float, degre_poly:int, initial_intervalle:float):
+def boucle_dichotomie(coeffs:float, degre_poly:int, initial_intervalle:float, precision:float):
     """
-    Boucle qui effectue la dichotomie jusqu'à obtenir une intervalle inférieure
+    Boucle qui effectue la dichotomie jusqu'à obtenir une intervalle aussi précise que demandée
+    Donnée : liste des coefficients (réels), degré du polynôme (entier), liste des bornes du
+    l'intervalle où se trouve la racine (réels), la précision demandée (réel)
+    Résultat : affichage d'une intervalle correspondant à la précision demandée pour la racine
     """
     continue_boucle = True
     if initial_intervalle[0] == initial_intervalle[1]:
@@ -102,7 +105,7 @@ def boucle_dichotomie(coeffs:float, degre_poly:int, initial_intervalle:float):
         if delta == 0:
             continue_boucle = False
             print("Le zéro se trouve exactement en x=", new_intervalle[0])
-        elif delta<=0.001:
+        elif delta<=precision:
             continue_boucle = False
             print("Le zéro se trouve dans l'intervalle : ", new_intervalle)
         else:
@@ -120,4 +123,5 @@ def degre():
 degree = degre()
 list_coeff = enter_poly(degre)
 intervalle = search_a(list_coeff, degre)
-boucle_dichotomie(list_coeff, degre, intervalle)
+boucle_dichotomie(list_coeff, degre, intervalle,
+    float(input("Entrez la précision demandée pour la racine : ")))
