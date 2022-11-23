@@ -10,7 +10,7 @@ Résultat : affiche un intervalle qui contient une racine du polynôme, selon la
 """
 
 
-def enter_poly(nb_coeff):
+def enter_poly(nb_coeff:int):
     """
     Stocke les coefficients du polynôme saisis par l'utilisateur
     Entrée : le nombre de coefficients (moins un) à demander
@@ -22,7 +22,7 @@ def enter_poly(nb_coeff):
     return coeff_entrees
 
 
-def calc_f_a(coeffs, degre_poly, nb_a):
+def calc_f_a(coeffs:float, degre_poly:int, nb_a:float):
     """
     Calcule le polynôme au point a
     Entrée : la liste des coefficients (réels), le degré du polynôme (entier) et la valeur de a (réel)
@@ -34,7 +34,7 @@ def calc_f_a(coeffs, degre_poly, nb_a):
     return f_a
 
 
-def search_a(coeffs, degre_poly):
+def search_a(coeffs:float, degre_poly:int):
     """
     Recherche une intervalle [a;-a] dans laquelle une racine du polynôme
     est contenue
@@ -62,7 +62,7 @@ def search_a(coeffs, degre_poly):
     return defined_intervalle
 
 
-def dichotomie(coeffs, degre_poly, initial_intervalle):
+def dichotomie(coeffs:float, degre_poly:int, initial_intervalle:float):
     """
     Applique le principe de dichotomie pour obtenir une plus petite
     intervalle contenant la racine du polynôme
@@ -87,13 +87,16 @@ def dichotomie(coeffs, degre_poly, initial_intervalle):
         return new_intervalle
 
 
-def boucle_dichotomie(list_coeff, degree, intervalle):
+def boucle_dichotomie(coeffs:float, degre_poly:int, initial_intervalle:float):
+    """
+    Boucle qui effectue la dichotomie jusqu'à obtenir une intervalle inférieure
+    """
     continue_boucle = True
-    if intervalle[0] == intervalle[1]:
+    if initial_intervalle[0] == initial_intervalle[1]:
         continue_boucle = False
-        print("Le zéro se trouve exactement en x=", intervalle[0])
+        print("Le zéro se trouve exactement en x=", initial_intervalle[0])
     else:
-        new_intervalle = dichotomie(list_coeff, degree, intervalle)
+        new_intervalle = dichotomie(coeffs, degre_poly, initial_intervalle)
     while continue_boucle:
         delta = abs(new_intervalle[1]-new_intervalle[0])
         if delta == 0:
@@ -103,19 +106,18 @@ def boucle_dichotomie(list_coeff, degree, intervalle):
             continue_boucle = False
             print("Le zéro se trouve dans l'intervalle : ", new_intervalle)
         else:
-            new_intervalle = dichotomie(list_coeff, degree, new_intervalle)
-
-
+            new_intervalle = dichotomie(coeffs, degre_poly, new_intervalle)
 
 
 def degre():
     degre = -1
     while degre<0 or degre%2 == 0:
-        degre = int(input("Entrez un degré pour le polynôme. \nRAPPEL : le degré est un entier positif et impair\nEcrire ici : "))
+        degre = int(input("""Entrez un degré pour le polynôme.
+        \nRAPPEL : le degré est un entier positif et impair\nEcrire ici : """))
     return degre
 
 
-degre = degre()
+degree = degre()
 list_coeff = enter_poly(degre)
 intervalle = search_a(list_coeff, degre)
 boucle_dichotomie(list_coeff, degre, intervalle)
