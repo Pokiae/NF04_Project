@@ -112,16 +112,22 @@ def boucle_dichotomie(coeffs:float, degre_poly:int, initial_intervalle:float, pr
             new_intervalle = dichotomie(coeffs, degre_poly, new_intervalle)
 
 
-def degre():
-    degre = -1
-    while degre<0 or degre%2 == 0:
-        degre = int(input("""Entrez un degré pour le polynôme.
+def get_degre():
+    """
+    Récupère le degré du polynôme entré par l'utilisateur
+    Donnée : vide
+    Résultat : degré du polynôme (entier)
+    """
+    entered_degre = -1
+    while entered_degre<0 or entered_degre%2 == 0:
+        entered_degre = int(input("""Entrez un degré pour le polynôme.
         \nRAPPEL : le degré est un entier positif et impair\nEcrire ici : """))
     return degre
 
 
-degree = degre()
+degre = get_degre()
 list_coeff = enter_poly(degre)
 intervalle = search_a(list_coeff, degre)
 boucle_dichotomie(list_coeff, degre, intervalle,
     float(input("Entrez la précision demandée pour la racine : ")))
+    
