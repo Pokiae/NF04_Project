@@ -62,11 +62,18 @@ def search_a(coeffs, degre_poly):
     return defined_intervalle
 
 
-def dichotomie(list_coeff, degre, intervalle):
-    distance = abs(intervalle[1]-intervalle[0])
-    new_intervalle = [intervalle[0], intervalle[1]-distance/2]
-    f_a = calc_f_a(list_coeff, degre, new_intervalle[1])
-    f_a_neg = calc_f_a(list_coeff, degre, new_intervalle[0])
+def dichotomie(coeffs, degre_poly, initial_intervalle):
+    """
+    Applique le principe de dichotomie pour obtenir une plus petite
+    intervalle contenant la racine du polynôme
+    Donnée : liste des coefficients du polynôme (réels), degré du polynôme (entier), liste
+    des bornes de l'intervalle dans laquelle se trouve la racine et qu'on veut réduire (deux réel)
+    Résultat : liste des bornes de la nouvelle intervalle contenant la racine (deux réels)
+    """
+    distance = abs(initial_intervalle[1]-initial_intervalle[0])
+    new_intervalle = [initial_intervalle[0], initial_intervalle[1]-distance/2]
+    f_a = calc_f_a(coeffs, degre_poly, new_intervalle[1])
+    f_a_neg = calc_f_a(coeffs, degre_poly, new_intervalle[0])
     prod_f_a = f_a*f_a_neg
     if prod_f_a<0:
         return new_intervalle
@@ -76,7 +83,7 @@ def dichotomie(list_coeff, degre, intervalle):
         else:
             return [new_intervalle[0], new_intervalle[0]]
     else:
-        new_intervalle = [intervalle[0]+distance/2, intervalle[1]]
+        new_intervalle = [initial_intervalle[0]+distance/2, initial_intervalle[1]]
         return new_intervalle
 
 
