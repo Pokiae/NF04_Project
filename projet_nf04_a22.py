@@ -121,7 +121,7 @@ def get_degre():
     entered_degre = -1
     while entered_degre<0 or entered_degre%2 == 0:
         entered_degre = int(input("""Entrez un degré pour le polynôme.
-        \nRAPPEL : le degré est un entier positif et impair\nEcrire ici : """))
+        RAPPEL : le degré est un entier positif et impair\nEcrire ici : """))
     return degre
 
 
@@ -130,4 +130,3 @@ list_coeff = enter_poly(degre)
 intervalle = search_a(list_coeff, degre)
 boucle_dichotomie(list_coeff, degre, intervalle,
     float(input("Entrez la précision demandée pour la racine : ")))
-    
