@@ -97,17 +97,17 @@ def boucle_dichotomie(coeffs:float, degre_poly:int, initial_intervalle:float, pr
     continue_boucle = True
     if initial_intervalle[0] == initial_intervalle[1]:
         continue_boucle = False
-        print("Le zéro se trouve exactement en x=", initial_intervalle[0])
+        print("La racine se trouve exactement en x=", initial_intervalle[0])
     else:
         new_intervalle = dichotomie(coeffs, degre_poly, initial_intervalle)
     while continue_boucle:
         delta = abs(new_intervalle[1]-new_intervalle[0])
         if delta == 0:
             continue_boucle = False
-            print("Le zéro se trouve exactement en x=", new_intervalle[0])
+            print("La racine se trouve exactement en x=", new_intervalle[0])
         elif delta<=precision:
             continue_boucle = False
-            print("Le zéro se trouve dans l'intervalle : ", new_intervalle)
+            print("La racine se trouve dans l'intervalle : ", new_intervalle)
         else:
             new_intervalle = dichotomie(coeffs, degre_poly, new_intervalle)
 
@@ -121,8 +121,8 @@ def get_degre():
     entered_degre = -1
     while entered_degre<0 or entered_degre%2 == 0:
         entered_degre = int(input("""Entrez un degré pour le polynôme.
-        RAPPEL : le degré est un entier positif et impair\nEcrire ici : """))
-    return degre
+RAPPEL : le degré est un entier positif et impair\nEcrire ici : """))
+    return entered_degre
 
 
 degre = get_degre()
